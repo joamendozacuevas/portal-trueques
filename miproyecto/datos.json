@@ -1,0 +1,22 @@
+[
+  {
+    "servicio_ofrecido": "gasfiteria",
+    "horas_ofrecidas": 1,
+    "servicio_solicitado": "asesoria_legal",
+    "horas_solicitadas": 1,
+    "valor_ofrecido": 20,
+    "valor_solicitado": 35,
+    "diferencia": -15,
+    "estado": "Intercambio Desproporcionado (Rechazado)"
+  },
+  {
+    "servicio_ofrecido": "asesoria_legal",
+    "horas_ofrecidas": 1,
+    "servicio_solicitado": "programacion",
+    "horas_solicitadas": 2,
+    "valor_ofrecido": 35,
+    "valor_solicitado": 60,
+    "diferencia": -25,
+    "estado": "Intercambio Desproporcionado (Rechazado)"
+  }
+]
