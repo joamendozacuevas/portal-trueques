@@ -19,29 +19,29 @@
         <div class="col-md-6">
           <label class="form-label">Servicio ofrecido</label>
           <select name="servicio_ofrecido" class="form-select">
-            {% for key in servicios.keys %}
-            <option value="{{ key }}">{{ key }}</option>
+            {% for key, val in servicios.items %}
+            <option value="{{ key }}" {% if resultado and resultado.servicio_ofrecido == key %}selected{% endif %}>{{ key }} — {{ val }} pts</option>
             {% endfor %}
           </select>
         </div>
 
         <div class="col-md-3">
           <label class="form-label">Horas ofrecidas</label>
-          <input type="number" name="horas_ofrecidas" class="form-control" value="1" min="0">
+          <input type="number" name="horas_ofrecidas" class="form-control" value="{% if resultado %}{{ resultado.horas_ofrecidas }}{% else %}1{% endif %}" min="0" step="1">
         </div>
 
         <div class="col-md-6">
           <label class="form-label">Servicio solicitado</label>
           <select name="servicio_solicitado" class="form-select">
-            {% for key in servicios.keys %}
-            <option value="{{ key }}">{{ key }}</option>
+            {% for key, val in servicios.items %}
+            <option value="{{ key }}" {% if resultado and resultado.servicio_solicitado == key %}selected{% endif %}>{{ key }} — {{ val }} pts</option>
             {% endfor %}
           </select>
         </div>
 
         <div class="col-md-3">
           <label class="form-label">Horas solicitadas</label>
-          <input type="number" name="horas_solicitadas" class="form-control" value="1" min="0">
+          <input type="number" name="horas_solicitadas" class="form-control" value="{% if resultado %}{{ resultado.horas_solicitadas }}{% else %}1{% endif %}" min="0" step="1">
         </div>
 
         <div class="col-12">
@@ -53,10 +53,18 @@
       <hr>
       <div class="mt-3">
         <h4>Resultado</h4>
-        <p><strong>Estado:</strong> {{ resultado.estado }}</p>
+        <p><strong>Estado:</strong>
+          {% if resultado.estado == 'Intercambio Perfecto' %}
+            <span class="badge bg-success">{{ resultado.estado }}</span>
+          {% elif resultado.estado == 'Intercambio Favorable para el Receptor' %}
+            <span class="badge bg-warning text-dark">{{ resultado.estado }}</span>
+          {% else %}
+            <span class="badge bg-danger">{{ resultado.estado }}</span>
+          {% endif %}
+        </p>
         <p>{{ resultado.mensaje }}</p>
-        <p>Sus {{ resultado.horas_ofrecidas }} hrs de {{ resultado.servicio_ofrecido }} valen {{ resultado.valor_ofrecido }} pts.</p>
-        <p>Pide {{ resultado.horas_solicitadas }} hrs de {{ resultado.servicio_solicitado }} ({{ resultado.valor_solicitado }} pts).</p>
+        <p>Sus {{ resultado.horas_ofrecidas }} hrs de <strong>{{ resultado.servicio_ofrecido }}</strong> valen <strong>{{ resultado.valor_ofrecido }}</strong> pts.</p>
+        <p>Pide {{ resultado.horas_solicitadas }} hrs de <strong>{{ resultado.servicio_solicitado }}</strong> (<strong>{{ resultado.valor_solicitado }}</strong> pts).</p>
       </div>
       {% endif %}
     </div>
